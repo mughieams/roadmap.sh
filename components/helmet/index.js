@@ -1,5 +1,5 @@
 import NextHead from 'next/head';
-import siteConfig from 'storage/site';
+import siteConfig from 'content/site';
 
 const prepareTitle = (givenTitle) => {
   givenTitle = givenTitle || siteConfig.title;
@@ -10,6 +10,7 @@ const prepareDescription = (givenDescription) => {
   return givenDescription || siteConfig.description;
 };
 
+// noinspection JSUnresolvedLibraryURL
 const Helmet = (props) => (
   <NextHead>
     <meta charSet='UTF-8' />
@@ -21,7 +22,7 @@ const Helmet = (props) => (
     <meta name="keywords" content={ siteConfig.keywords.join(',') } />
 
     <meta name="viewport" content="width=device-width, user-scalable=yes, initial-scale=1.0, maximum-scale=3.0, minimum-scale=1.0" />
-    <link rel="canonical" href={ siteConfig.url.web } />
+    { props.canonical && <link rel="canonical" href={ props.canonical } /> }
     <meta httpEquiv="Content-Language" content="en" />
 
     <meta property="og:title" content={ prepareTitle(props.title) } />
@@ -43,15 +44,15 @@ const Helmet = (props) => (
     <meta name="mobile-web-app-capable" content="yes" />
     <meta name="apple-mobile-web-app-capable" content="yes" />
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
-    <link rel="apple-touch-icon" sizes="180x180" href="/static/manifest/apple-touch-icon.png" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/manifest/apple-touch-icon.png" />
     <meta name="msapplication-TileColor" content="#101010" />
     <meta name="theme-color" content="#848a9a" />
 
-    <link rel="manifest" href="/static/manifest/manifest.json" />
-    <link rel="icon" type="image/png" sizes="32x32" href="/static/manifest/icon32.png" />
-    <link rel="icon" type="image/png" sizes="16x16" href="/static/manifest/icon16.png" />
-    <link rel="shortcut icon" href="/static/manifest/favicon.ico" type="image/x-icon" />
-    <link rel="icon" href="/static/manifest/favicon.ico" type="image/x-icon" />
+    <link rel="manifest" href="/manifest/manifest.json" />
+    <link rel="icon" type="image/png" sizes="32x32" href="/manifest/icon32.png" />
+    <link rel="icon" type="image/png" sizes="16x16" href="/manifest/icon16.png" />
+    <link rel="shortcut icon" href="/manifest/favicon.ico" type="image/x-icon" />
+    <link rel="icon" href="/manifest/favicon.ico" type="image/x-icon" />
 
     { /* Global Site Tag (gtag.js) - Google Analytics */ }
     { process.env.GA_SECRET && (
@@ -65,8 +66,14 @@ const Helmet = (props) => (
             gtag('config', '${process.env.GA_SECRET}');
           `,
         }} />
+        <script
+          data-ad-client="ca-pub-7480420865005146"
+          async
+          src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"
+        />
       </>
     )}
+
   </NextHead>
 );
 

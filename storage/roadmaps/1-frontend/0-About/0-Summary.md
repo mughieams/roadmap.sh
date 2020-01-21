@@ -1,1 +1,0 @@
-![](/static/roadmaps/frontend.png)
